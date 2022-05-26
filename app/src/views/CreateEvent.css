@@ -1,0 +1,23 @@
+.eventForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 60px;
+    flex-basis: 300px;
+    
+    
+    
+}
+
+.errorDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 14px;
+
+    
+
+}
