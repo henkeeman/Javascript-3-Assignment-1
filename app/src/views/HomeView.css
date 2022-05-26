@@ -11,3 +11,7 @@ h1{
     justify-content: center;
 
 }
+.carouselDiv{
+    display: flex;
+    justify-content: center;
+}
