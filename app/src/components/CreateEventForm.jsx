@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'
 
 
-
-
-
+let titleValue = '';
+let informationValue = '';
+let dateValue = '';
+  
 
 const CreateEventForm = () => {
 
   // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyN2Q0YmJhMTg4ODI2MGUwZGUzZjU0MiIsImlhdCI6MTY1MzM4NTA2MCwiZXhwIjoxNjUzMzg4NjYwfQ.nRm1YwCktCMR16jb49of046VGJAIPkL7_W3_F_NDSJs'
-  let titleValue = '';
-  let informationValue = '';
-  let dateValue = '';
 
   const errorsInitState = {title: '', information: '', date: ''}
   const [errors,setErrors] = useState(errorsInitState);
@@ -39,9 +37,11 @@ const CreateEventForm = () => {
 
 const onChangeTitle = (event) => {
   titleValue = event.target.value;
+  console.log(titleValue)
 }
   const onChangeInfo = (event) => {
   informationValue = event.target.value;
+  console.log(informationValue)
 }
 const onChangeDate = (event) => {
   dateValue = event.target.value;
@@ -70,6 +70,9 @@ const onSubmit = (event) => {
   {
     event.preventDefault();
   }
+  console.log(errors.title)
+  console.log(errors.information)
+  console.log(errors.date)
   setErrors(tempErrorObj)
   if(!error)
   {
@@ -104,9 +107,9 @@ const onSubmit = (event) => {
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
         <div className='errorDiv'>
-          {errors.title.length > 0 && <div class="alert alert-warning" role="alert">{errors.title}</div>}
-          {errors.information.length > 0 && <div class="alert alert-warning" role="alert">{errors.information}</div>}
-          {errors.date.length > 0 && <div class="alert alert-warning" role="alert">{errors.date}</div>}
+          {errors.title.length > 0 && <div className="alert alert-warning" role="alert">{errors.title}</div>}
+          {errors.information.length > 0 && <div className="alert alert-warning" role="alert">{errors.information}</div>}
+          {errors.date.length > 0 && <div className="alert alert-warning" role="alert">{errors.date}</div>}
         </div>
       </div>
         
