@@ -12,6 +12,10 @@ const postSchema = mongoose.Schema({
     date: {
         type: String,
         required: true
+    },
+    userid: {
+        type: String,
+        required: true
     }
 },{timestamps: true})
 

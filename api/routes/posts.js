@@ -2,14 +2,17 @@ const express = require('express');
 const Post = require('../models/Post');
 const auth = require('../authentication/auth')
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
+const secretKey = process.env.SECRET_KEY
 
-
-router.post('/',(req,res) => {
+router.post('/',auth.verifyToken,(req,res) => {
     const post = new Post({
         title: req.body.title,
         information: req.body.information,
-        date: req.body.date
+        date: req.body.date,
+        userid: req.body.userid
 
     });
     post.save()
@@ -22,7 +25,15 @@ router.post('/',(req,res) => {
 })
 
 router.get('/', async (req,res) => {
-    Post.find({}, (err, data) => {
+    let decoded = ''
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      decoded = jwt.verify(token,secretKey)
+      console.log(decoded.id);
+  } catch {
+      console.log("fail")
+  }
+    Post.find({"userid": `${decoded.id}`}, (err, data) => {
 
         if(err) {
           return res.status(500).json({

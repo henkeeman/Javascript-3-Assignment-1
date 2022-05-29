@@ -14,10 +14,24 @@ const EventsView = () => {
     useEffect(() => {
         dispatch(getEvents())
     },[dispatch])
-    console.log(events)
+    events.sort(function compareFn(a, b) {
+        // console.log(`A ${new Date(a.date).getTime()} VS B ${new Date(b.date).getTime()}`)
+        return (new Date(a.date) - new Date(b.date))
+    })
+    console.log(new Date().getTime())
+    
+
     return(
         <div className="eventsView">
-            {events.map(event => <Event header=
+            <div>
+                <h1>--------------------------- Upcoming Events ---------------------------</h1>
+            </div>
+            {events.map(event => new Date(event.date) > new Date() && <Event header=
+            {event.date} title={event.title} text={event.information} _id={event._id}/>)}
+            <div>
+                <h1>--------------------------- Old Events ---------------------------</h1>
+            </div>
+            {events.map(event => new Date(event.date) < new Date() && <Event header=
             {event.date} title={event.title} text={event.information} _id={event._id}/>)}
             
             

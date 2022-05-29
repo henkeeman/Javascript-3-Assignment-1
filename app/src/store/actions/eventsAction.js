@@ -3,10 +3,14 @@ import actiontypes from '../actiontypes';
 
 export const getEvents = () => {
   return async dispatch => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/products')
-        dispatch(setEvents(res.data))
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       
+    };
+    try {
+      const res = await axios.get('http://localhost:5000/api/products',config)
+        dispatch(setEvents(res.data))
+        console.log(localStorage.getItem("token"))
       
     }
     catch(err) {

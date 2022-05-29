@@ -50,7 +50,8 @@ router.post('/register',(req,res) => {
             statusCode: 201,
             status: true,
             message: 'User has succesfully been created',
-            token: auth.generateToken(user)
+            token: auth.generateToken(user),
+            _id: user._id
            })
        })
        .catch(err => {
@@ -108,7 +109,8 @@ router.post('/login', async (req,res) => {
                 statusCode: 200,
                 status: true,
                 message: 'Authentication was succesful',
-                token: auth.generateToken(user)
+                token: auth.generateToken(user),
+                _id: user._id
             })
         })
 

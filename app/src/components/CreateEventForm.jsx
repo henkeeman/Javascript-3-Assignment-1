@@ -11,26 +11,27 @@ const CreateEventForm = () => {
 
   // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyN2Q0YmJhMTg4ODI2MGUwZGUzZjU0MiIsImlhdCI6MTY1MzM4NTA2MCwiZXhwIjoxNjUzMzg4NjYwfQ.nRm1YwCktCMR16jb49of046VGJAIPkL7_W3_F_NDSJs'
 
-  const errorsInitState = {title: '', information: '', date: ''}
+  const errorsInitState = {title: '', information: '', date: '',loginstatus: ''}
   const [errors,setErrors] = useState(errorsInitState);
 
   const postTest = () => {
 
 
-  // const config = {
-  //   headers: { Authorization: `Bearer ${token}` }
-  // };
+  const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+  };
 
   const bodyParameters = {
     title: titleValue,
     information: informationValue,
-    date: dateValue
+    date: dateValue,
+    userid: localStorage.getItem("userid")
   };
 // Skriv komma här efter "bodyparamaters"
   axios.post( 
     'http://localhost:5000/api/products',
-  bodyParameters
-  // config
+  bodyParameters,
+  config
   ).then((response) => console.log(response)).catch((error) => console.log(error));
 
 }
@@ -65,6 +66,11 @@ const onSubmit = (event) => {
   {
     error = true;
     tempErrorObj.date = 'You must select a date'
+  }
+  if(localStorage.getItem("token") === '' || localStorage.getItem("token") === null)
+  {
+    error = true;
+    tempErrorObj.loginstatus = 'Please login to create event'
   }
   if(error)
   {
@@ -110,6 +116,7 @@ const onSubmit = (event) => {
           {errors.title.length > 0 && <div className="alert alert-warning" role="alert">{errors.title}</div>}
           {errors.information.length > 0 && <div className="alert alert-warning" role="alert">{errors.information}</div>}
           {errors.date.length > 0 && <div className="alert alert-warning" role="alert">{errors.date}</div>}
+          {errors.loginstatus.length > 0 && <div className="alert alert-warning" role="alert">{errors.loginstatus}</div>}
         </div>
       </div>
         
